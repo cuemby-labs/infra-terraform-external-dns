@@ -1,10 +1,52 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for template walrus-template-template
+  title: OpenAPI schema for template .
 components:
   schemas:
     variables:
       type: object
+      required:
+      - cloudflare_api_token
+      - namespace_name
+      - txt_owner_id
+      properties:
+        namespace_name:
+          title: Namespace Name
+          type: string
+          description: The namespace where resources will be created.
+          x-walrus-ui:
+            group: Basic
+            order: 2
+        helm_release_name:
+          title: Helm Release Name
+          type: string
+          description: The name of the Helm release.
+          default: external-dns-cloudflare
+          x-walrus-ui:
+            group: Basic
+            order: 3
+        helm_chart_version:
+          title: Helm Chart Version
+          type: string
+          description: The version of the Helm chart.
+          default: 6.31.0
+          x-walrus-ui:
+            group: Basic
+            order: 4
+        cloudflare_api_token:
+          title: Cloudflare Api Token
+          type: string
+          description: The Cloudflare API token, base64-encoded.
+          x-walrus-ui:
+            group: Basic
+            order: 5
+        txt_owner_id:
+          title: Txt Owner Id
+          type: string
+          description: Cluster name for TXT owner ID.
+          x-walrus-ui:
+            group: Basic
+            order: 6
       x-walrus-ui:
         groupOrder:
         - Basic
