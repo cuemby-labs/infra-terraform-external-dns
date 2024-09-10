@@ -1,0 +1,10 @@
+provider: cloudflare
+cloudflare:
+  secretName: cloudflare-api-token
+resources:
+  requests:
+    cpu: 1000m
+    memory: 256Mi
+  limits:
+    cpu: 2000m
+    memory: 512Mi
