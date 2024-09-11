@@ -12,7 +12,7 @@ module "submodule" {
 # Cloudflare 
 #
 
-resource "kubernetes_secret" "cloudflare_api_token" {
+resource "kubernetes_secret" "this" {
   metadata {
     name      = "cloudflare-api-token"
     namespace = var.namespace_name
@@ -27,13 +27,13 @@ resource "kubernetes_secret" "cloudflare_api_token" {
 # External DNS 
 #
 
-resource "kubernetes_namespace" "external_dns" {
+resource "kubernetes_namespace" "this" {
   metadata {
     name = var.namespace_name
   }
 }
 
-resource "helm_release" "external_dns" {
+resource "helm_release" "this" {
   name       = var.helm_release_name
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "external-dns"

@@ -52,6 +52,7 @@ variable "helm_chart_version" {
 variable "cloudflare_api_token" {
   description = "The Cloudflare API token, base64-encoded."
   type        = string
+  sensitive   = true
 }
 
 variable "txt_owner_id" {
