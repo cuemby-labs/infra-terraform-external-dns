@@ -27,12 +27,6 @@ resource "kubernetes_secret" "this" {
 # External DNS 
 #
 
-resource "kubernetes_namespace" "this" {
-  metadata {
-    name = var.namespace_name
-  }
-}
-
 resource "helm_release" "this" {
   name       = var.helm_release_name
   repository = "https://charts.bitnami.com/bitnami"
