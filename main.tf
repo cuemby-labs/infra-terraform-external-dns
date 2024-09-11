@@ -47,5 +47,5 @@ resource "helm_release" "this" {
     value = var.txt_owner_id
   }
 
-  depends_on = [kubernetes_secret.cloudflare_api_token]
+  depends_on = [kubernetes_secret.this]
 }
