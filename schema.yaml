@@ -7,16 +7,16 @@ components:
       type: object
       required:
       - cloudflare_api_token
-      - namespace_name
       - txt_owner_id
       properties:
         namespace_name:
           title: Namespace Name
           type: string
           description: The namespace where resources will be created.
+          default: external-dns
           x-walrus-ui:
             group: Basic
-            order: 2
+            order: 1
         helm_release_name:
           title: Helm Release Name
           type: string
@@ -24,29 +24,31 @@ components:
           default: external-dns-cloudflare
           x-walrus-ui:
             group: Basic
-            order: 3
+            order: 2
         helm_chart_version:
           title: Helm Chart Version
           type: string
           description: The version of the Helm chart.
-          default: 6.31.0
+          default: 8.3.7
           x-walrus-ui:
             group: Basic
-            order: 4
+            order: 3
         cloudflare_api_token:
           title: Cloudflare Api Token
           type: string
           description: The Cloudflare API token, base64-encoded.
+          format: password
+          writeOnly: true
           x-walrus-ui:
             group: Basic
-            order: 5
+            order: 4
         txt_owner_id:
           title: Txt Owner Id
           type: string
           description: Cluster name for TXT owner ID.
           x-walrus-ui:
             group: Basic
-            order: 6
+            order: 5
       x-walrus-ui:
         groupOrder:
         - Basic

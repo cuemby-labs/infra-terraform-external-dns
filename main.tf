@@ -1,18 +1,8 @@
-locals {
-  context = var.context
-}
-
-module "submodule" {
-  source = "./modules/submodule"
-
-  message = "Hello, submodule"
-}
-
 #
 # Cloudflare 
 #
 
-resource "kubernetes_secret" "this" {
+resource "kubernetes_secret" "cloudflare_api_token" {
   metadata {
     name      = "cloudflare-api-token"
     namespace = var.namespace_name
@@ -27,7 +17,13 @@ resource "kubernetes_secret" "this" {
 # External DNS 
 #
 
-resource "helm_release" "this" {
+resource "kubernetes_namespace" "external_dns" {
+  metadata {
+    name = var.namespace_name
+  }
+}
+
+resource "helm_release" "external_dns" {
   name       = var.helm_release_name
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "external-dns"
@@ -41,5 +37,13 @@ resource "helm_release" "this" {
     value = var.txt_owner_id
   }
 
-  depends_on = [kubernetes_secret.this]
+  depends_on = [kubernetes_secret.cloudflare_api_token]
+}
+
+#
+# Walrus information
+#
+
+locals {
+  context = var.context
 }
