@@ -1,4 +1,4 @@
-# Awesome Walrus Template
+# External DNS Template
 
 Terraform module which deploys External-DNS on any kubernetes cluster.
 
