@@ -8,11 +8,11 @@ Terraform module which deploys External-DNS on any kubernetes cluster.
 module "external_dns" {
   source = "./modules/external-dns" # Path to the External-DNS module
 
-  namespace_name       = var.namespace_name       # The namespace where External-DNS will be created
-  helm_release_name    = var.helm_release_name    # The name of the Helm release
-  helm_chart_version   = var.helm_chart_version   # The version of the External-DNS Helm chart
-  cloudflare_api_token = var.cloudflare_api_token # The Cloudflare API token
-  txt_owner_id         = var.txt_owner_id         # The owner ID for TXT records (cluster name)
+  namespace_name       = "external-dns"              # The namespace where External-DNS will be created
+  helm_release_name    = "external-dns-cloudflare"   # The name of the Helm release
+  helm_chart_version   = "8.3.7"                     # The version of the External-DNS Helm chart
+  cloudflare_api_token = "Cloudflare_API_token"      # The Cloudflare API token
+  txt_owner_id         = "Cluster_ID"                # The owner ID for TXT records (cluster name)
 }
 ```
 
