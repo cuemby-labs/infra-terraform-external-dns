@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for template .
+  title: OpenAPI schema for External-DNS template .
 components:
   schemas:
     variables:
@@ -39,11 +39,11 @@ components:
           description: Resource limits and requests for the External-DNS Helm release.
           default:
             limits:
-              cpu: 200m
-              memory: 256Mi
+              cpu: 2000m
+              memory: 512Mi
             requests:
-              cpu: 100m
-              memory: 128Mi
+              cpu: 1000m
+              memory: 256Mi
           additionalProperties:
             additionalProperties:
               type: string
