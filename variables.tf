@@ -24,12 +24,12 @@ variable "resources" {
   type = map(map(string))
   default = {
     limits = {
-      cpu    = "200m"
-      memory = "256Mi"
+      cpu    = "2000m"
+      memory = "512Mi"
     }
     requests = {
-      cpu    = "100m"
-      memory = "128Mi"
+      cpu    = "1000m"
+      memory = "256Mi"
     }
   }
   description = "Resource limits and requests for the External-DNS Helm release."
