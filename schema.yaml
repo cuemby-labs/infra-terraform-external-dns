@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for External-DNS template.
+  title: OpenAPI schema for template .
 components:
   schemas:
     variables:
@@ -33,6 +33,27 @@ components:
           x-walrus-ui:
             group: Basic
             order: 3
+        resources:
+          title: Resources
+          type: object
+          description: Resource limits and requests for the External-DNS Helm release.
+          default:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          additionalProperties:
+            additionalProperties:
+              type: string
+            type: object
+            x-walrus-ui:
+              colSpan: 12
+          x-walrus-ui:
+            colSpan: 12
+            group: Basic
+            order: 4
         cloudflare_api_token:
           title: Cloudflare Api Token
           type: string
@@ -41,14 +62,14 @@ components:
           writeOnly: true
           x-walrus-ui:
             group: Basic
-            order: 4
+            order: 5
         txt_owner_id:
           title: Txt Owner Id
           type: string
           description: Cluster name for TXT owner ID.
           x-walrus-ui:
             group: Basic
-            order: 5
+            order: 6
       x-walrus-ui:
         groupOrder:
         - Basic

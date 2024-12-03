@@ -24,20 +24,28 @@ resource "kubernetes_namespace" "external_dns" {
 }
 
 resource "helm_release" "external_dns" {
+  depends_on = [kubernetes_secret.cloudflare_api_token]
+
   name       = var.helm_release_name
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "external-dns"
   version    = var.helm_chart_version
   namespace  = var.namespace_name
 
-  values     = [file("${path.module}/values.yaml")]
+  values = [
+    templatefile("${path.module}/values.yaml.tpl", {
+      request_memory = var.resources["requests"]["memory"],
+      limits_memory  = var.resources["limits"]["memory"],
+      request_cpu    = var.resources["requests"]["cpu"],
+      limits_cpu     = var.resources["limits"]["cpu"]
+    })
+  ]
 
   set {
     name  = "txtOwnerId"
     value = var.txt_owner_id
   }
 
-  depends_on = [kubernetes_secret.cloudflare_api_token]
 }
 
 #

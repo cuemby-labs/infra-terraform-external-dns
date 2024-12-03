@@ -20,6 +20,21 @@ variable "helm_chart_version" {
   default     = "8.3.7"
 }
 
+variable "resources" {
+  type = map(map(string))
+  default = {
+    limits = {
+      cpu    = "200m"
+      memory = "256Mi"
+    }
+    requests = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+  }
+  description = "Resource limits and requests for the External-DNS Helm release."
+}
+
 #
 # Cloudflare
 #
