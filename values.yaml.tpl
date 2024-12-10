@@ -1,3 +1,7 @@
+# CloudFlare Configuration
+provider: cloudflare
+cloudflare:
+  secretName: cloudflare-api-token
 # External_DNS Pod resources
 resources:
   limits:
