@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for External-DNS template .
+  title: OpenAPI schema for External DNS template .
 components:
   schemas:
     variables:
@@ -54,6 +54,45 @@ components:
             colSpan: 12
             group: Basic
             order: 4
+        hpa_config:
+          title: Hpa Config
+          type: object
+          description: Configuration for the HPA targeting External-DNS Deployment
+          default:
+            max_replicas: 3
+            min_replicas: 1
+            target_cpu_utilization: 80
+            target_memory_utilization: 80
+          required:
+          - max_replicas
+          - min_replicas
+          - target_cpu_utilization
+          - target_memory_utilization
+          properties:
+            max_replicas:
+              title: Max Replicas
+              type: number
+              x-walrus-ui:
+                order: 2
+            min_replicas:
+              title: Min Replicas
+              type: number
+              x-walrus-ui:
+                order: 1
+            target_cpu_utilization:
+              title: Target Cpu Utilization
+              type: number
+              x-walrus-ui:
+                order: 3
+            target_memory_utilization:
+              title: Target Memory Utilization
+              type: number
+              x-walrus-ui:
+                order: 4
+          x-walrus-ui:
+            colSpan: 12
+            group: Basic
+            order: 5
         cloudflare_api_token:
           title: Cloudflare Api Token
           type: string
@@ -62,14 +101,14 @@ components:
           writeOnly: true
           x-walrus-ui:
             group: Basic
-            order: 5
+            order: 6
         txt_owner_id:
           title: Txt Owner Id
           type: string
           description: Cluster name for TXT owner ID.
           x-walrus-ui:
             group: Basic
-            order: 6
+            order: 7
       x-walrus-ui:
         groupOrder:
         - Basic

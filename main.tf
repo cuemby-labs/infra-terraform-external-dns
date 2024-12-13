@@ -14,6 +14,34 @@ resource "kubernetes_secret" "cloudflare_api_token" {
 }
 
 #
+# HPA
+#
+
+data "template_file" "hpa_manifest_template" {
+  
+  template = file("${path.module}/hpa.yaml.tpl")
+  vars     = {
+    namespace_name            = var.namespace_name,
+    name_metadata             = "${helm_release.external_dns.name}",
+    name_deployment           = "${helm_release.external_dns.name}"-cloudflare,
+    min_replicas              = var.hpa_config.min_replicas,
+    max_replicas              = var.hpa_config.max_replicas,
+    target_cpu_utilization    = var.hpa_config.target_cpu_utilization,
+    target_memory_utilization = var.hpa_config.target_memory_utilization
+  }
+}
+
+data "kubectl_file_documents" "hpa_manifest_files" {
+
+  content = data.template_file.hpa_manifest_template.rendered
+}
+
+resource "kubectl_manifest" "apply_manifests" {
+  for_each  = data.kubectl_file_documents.hpa_manifest_files.manifests
+  yaml_body = each.value
+}
+
+#
 # External DNS 
 #
 
