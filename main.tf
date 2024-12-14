@@ -23,7 +23,7 @@ data "template_file" "hpa_manifest_template" {
   vars     = {
     namespace_name            = var.namespace_name,
     name_metadata             = "${helm_release.external_dns.name}",
-    name_deployment           = "${helm_release.external_dns.name}"-cloudflare,
+    name_deployment           = "${helm_release.external_dns.name}-cloudflare",
     min_replicas              = var.hpa_config.min_replicas,
     max_replicas              = var.hpa_config.max_replicas,
     target_cpu_utilization    = var.hpa_config.target_cpu_utilization,
