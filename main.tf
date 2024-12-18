@@ -18,12 +18,11 @@ resource "kubernetes_secret" "cloudflare_api_token" {
 #
 
 data "template_file" "hpa_manifest_template" {
-  
   template = file("${path.module}/hpa.yaml.tpl")
   vars     = {
     namespace_name            = var.namespace_name,
-    name_metadata             = "${helm_release.external_dns.name}",
-    name_deployment           = "${helm_release.external_dns.name}",
+    name_metadata             = "${var.helm_release_name}",
+    name_deployment           = "${var.helm_release_name}",
     min_replicas              = var.hpa_config.min_replicas,
     max_replicas              = var.hpa_config.max_replicas,
     target_cpu_utilization    = var.hpa_config.target_cpu_utilization,
@@ -32,13 +31,18 @@ data "template_file" "hpa_manifest_template" {
 }
 
 data "kubectl_file_documents" "hpa_manifest_files" {
-
   content = data.template_file.hpa_manifest_template.rendered
 }
 
 resource "kubectl_manifest" "apply_manifests" {
   for_each  = data.kubectl_file_documents.hpa_manifest_files.manifests
   yaml_body = each.value
+
+  lifecycle {
+    ignore_changes = [yaml_body]
+  }
+
+  depends_on = [data.kubectl_file_documents.hpa_manifest_files]
 }
 
 #
@@ -82,4 +86,10 @@ resource "helm_release" "external_dns" {
 
 locals {
   context = var.context
+}
+
+module "submodule" {
+  source = "./modules/submodule"
+
+  message = "Hello, submodule"
 }
