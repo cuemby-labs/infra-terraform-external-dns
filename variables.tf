@@ -20,6 +20,12 @@ variable "helm_chart_version" {
   default     = "8.3.7"
 }
 
+variable "policy" {
+  description = "policy Modify how DNS records are synchronized between sources and providers."
+  type        = string
+  default     = "sync"
+}
+
 variable "resources" {
   type = map(map(string))
   default = {

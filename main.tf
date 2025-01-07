@@ -77,6 +77,10 @@ resource "helm_release" "external_dns" {
     name  = "txtOwnerId"
     value = var.txt_owner_id
   }
+  set {
+    name  = "policy"
+    value = var.policy
+  }
 
 }
 

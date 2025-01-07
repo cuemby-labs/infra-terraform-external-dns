@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for External DNS template .
+  title: OpenAPI schema for External-DNS template .
 components:
   schemas:
     variables:
@@ -33,6 +33,21 @@ components:
           x-walrus-ui:
             group: Basic
             order: 3
+        policy:
+          title: Policy
+          type: string
+          description: policy Modify how DNS records are synchronized between sources
+            and providers.
+          default: sync
+          enum:
+          - sync
+          - upsert-only
+          - update-only
+          - create-only
+          - crud
+          x-walrus-ui:
+            group: Basic
+            order: 4
         resources:
           title: Resources
           type: object
@@ -53,7 +68,7 @@ components:
           x-walrus-ui:
             colSpan: 12
             group: Basic
-            order: 4
+            order: 5
         hpa_config:
           title: Hpa Config
           type: object
@@ -92,7 +107,7 @@ components:
           x-walrus-ui:
             colSpan: 12
             group: Basic
-            order: 5
+            order: 6
         cloudflare_api_token:
           title: Cloudflare Api Token
           type: string
@@ -101,14 +116,14 @@ components:
           writeOnly: true
           x-walrus-ui:
             group: Basic
-            order: 6
+            order: 7
         txt_owner_id:
           title: Txt Owner Id
           type: string
           description: Cluster name for TXT owner ID.
           x-walrus-ui:
             group: Basic
-            order: 7
+            order: 8
       x-walrus-ui:
         groupOrder:
         - Basic
